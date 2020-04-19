@@ -1,6 +1,8 @@
 <template>
   <div class="PostsShow">
-    <h1>{{ message }}</h1>
+    <h3>Title: {{ post.title }}</h3>
+    <h3>Body: {{ post.body }}</h3>
+    <h3>Image: {{ post.image }}</h3>
   </div>
 </template>
 
@@ -13,12 +15,11 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      message: "Welcome to Vue.js!",
       post: {}
     };
   },
   created: function() {
-    axios.get('/api/posts' + this.$route.params.id).then(response => {
+    axios.get(`/api/posts/${this.post.id}`).then(response => {
       console.log(response.data);
       this.post = response.data;
     })

@@ -7,6 +7,7 @@ import Logout from "../views/Logout.vue";
 import PostsIndex from "../views/PostsIndex.vue";
 import PostsNew from "../views/PostsNew.vue";
 import PostsShow from "../views/PostsShow.vue";
+import PostsEdit from "../views/PostsEdit.vue";
 
 Vue.use(VueRouter)
 
@@ -21,14 +22,7 @@ Vue.use(VueRouter)
     name: "signup", 
     component: Signup 
 },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
+
   { path: "/login",
     name: "login",
     component: Login 
@@ -39,20 +33,34 @@ Vue.use(VueRouter)
     component: Logout 
   },
   {
-    path: "/PostsIndex",
+    path: "/posts",
     name: "PostsIndex",
     component: PostsIndex
   },
   {
-    path: "/PostsNew",
+    path: "/posts/new",
     name: "PostsNew",
     component: PostsNew
   },
   {
-    path: "/PostsShow/:id",
+    path: "/posts/:id",
     name: "PostsShow",
     component: PostsShow
+  },
+  {
+    path: "/posts/:id/edit",
+    name: "PostsEdit",
+    component: PostsEdit
+  },
+  {
+    path: '/about',
+    name: 'About',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
+ 
 ]
 
 const router = new VueRouter({

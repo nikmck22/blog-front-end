@@ -6,8 +6,9 @@
       <router-link to="/signup">Signup</router-link> | 
       <router-link to="/login">Login</router-link> | 
       <router-link to="/logout">Logout</router-link> |
-      <router-link to="/PostsIndex">All Posts</router-link> | 
-      <router-link to="/PostsNew">New Post</router-link>
+      <router-link to="/posts">All Posts</router-link> | 
+      <router-link to="/posts/new">New Post</router-link> |
+      <router-link to="/posts/:id/edit">Edit a Post</router-link>
 
     </div>
     <router-view/>
