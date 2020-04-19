@@ -1,5 +1,5 @@
 <template>
-  <div class="PostsEdit">
+  <div class="PostsNew">
     <div class="container">
       <form v-on:submit.prevent="submit()">
         <h1>Edit this post</h1>
@@ -34,14 +34,19 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      post: {
-        title: "",
-        body: "",
-        image: "",
-      },
-      errors: []
+      post: {},
+      errors: [],
     };
   },
+
+  created: function() {
+    console.log('this is the edit page');
+    axios.get(`/api/posts/${this.post.id}`).then(response => {
+      console.log(response.data);
+      this.post = response.data;
+    });
+  },
+
   methods: {
     submit: function() {
       var params = {
@@ -49,8 +54,9 @@ export default {
         body: this.post.body,
         image: this.post.image
       };
+
       axios
-        .patch(`/api/posts/${this.post.id}/edit`, params)
+        .patch(`/api/posts/${this.post.id}`, params)
         .then(response => {
           this.$router.push("/posts");
         })

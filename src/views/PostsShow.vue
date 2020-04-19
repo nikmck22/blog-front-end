@@ -3,6 +3,8 @@
     <h3>Title: {{ post.title }}</h3>
     <h3>Body: {{ post.body }}</h3>
     <h3>Image: {{ post.image }}</h3>
+
+    <button v-on:click="deletePost()">Delete this post</button>
   </div>
 </template>
 

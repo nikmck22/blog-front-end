@@ -6,6 +6,7 @@
         <ul>
           <li class="text-danger" v-for="error in errors">{{ error }}</li>
         </ul>
+        
         <div class="form-group">
           <label>Title:</label> 
           <input type="text" class="form-control" v-model="title">
