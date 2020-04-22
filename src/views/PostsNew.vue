@@ -6,10 +6,13 @@
         <ul>
           <li class="text-danger" v-for="error in errors">{{ error }}</li>
         </ul>
-        
+        <img v-if="status" v-bind:src="`https://http.cat/${status}`">
         <div class="form-group">
           <label>Title:</label> 
           <input type="text" class="form-control" v-model="title">
+
+          <small v-if="title.length <= 20">{{ 20 - title.length }} characters remaining</small>
+          <small v-if="title.length > 20" class="alert alert-danger">Title must be less than 20 characters</small>
         </div>
         <div class="form-group">
           <label>Body:</label>
@@ -29,6 +32,9 @@
   </div>
 </template>
 
+<style>
+</style>
+
 <script>
 import axios from "axios";
 
@@ -38,7 +44,8 @@ export default {
       title: "",
       body: "",
       image: "",
-      errors: []
+      errors: [],
+      status: ""
     };
   },
   methods: {
@@ -55,6 +62,7 @@ export default {
         })
         .catch(error => {
           this.errors = error.response.data.errors;
+          this.status = error.response.status;
         });
     }
   }
