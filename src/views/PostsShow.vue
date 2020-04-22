@@ -4,6 +4,8 @@
     <h3>Body: {{ post.body }}</h3>
     <h3>Image: {{ post.image }}</h3>
 
+    <a v-if="post.user_id === $parent.isCurrentUser()" v-bind:href="`/posts/${post.id}/edit`">Edit this Post</a>
+
     <button v-on:click="deletePost()">Delete this post</button>
   </div>
 </template>
@@ -21,11 +23,13 @@ export default {
     };
   },
   created: function() {
-    axios.get(`/api/posts/${this.post.id}`).then(response => {
+    axios.get("/api/posts/" + this.$route.params.id).then(response => {
       console.log(response.data);
       this.post = response.data;
-    })
+    });
   },
-  methods: {}
+  methods: {
+
+  }
 };
 </script>

@@ -30,10 +30,10 @@
           Auth
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/login">Login</a>
-          <a class="dropdown-item" href="/logout">Logout</a>
+          <a v-if="!isLoggedIn()" class="dropdown-item" href="/login">Login</a>
+          <a v-if="isLoggedIn()" class="dropdown-item" href="/logout">Logout</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/signup">Signup</a>
+          <a v-if="!isLoggedIn()" class="dropdown-item" href="/signup">Signup</a>
         </div>
       </li>
       <li class="nav-item">
@@ -41,7 +41,7 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-model="titleFilter">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
@@ -87,3 +87,27 @@ body {
   color: #42b983;
 } */
 </style>
+
+<script>
+
+export default {
+  data: function() {
+    return {
+      titleFilter: "" 
+    };
+  },  
+  methods: {
+    isLoggedIn: function() {
+      console.log("Am I logged in or not?");
+      if (localStorage.getItem("jwt")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isCurrentUser: function() {
+      return parseInt(localStorage.getItem("user_id"));
+    }
+  }
+};
+</script>
