@@ -2,13 +2,26 @@
   <div class="home">
     <h1>{{ message }}</h1>
     <h4>This is the Posts Index page</h4>
-        <!-- Find your post here: <input type="text" v-model="titleFilter"> -->
+        Find your post here: <input type="text" v-model="titleFilter" list="titles">
+        <datalist id="titles">
+          <option v-for="post in posts">{{post.title}}</option>
+        </datalist>
 
-      <div v-for="post in filterBy(posts, $parent.titleFilter, 'title')" v-on:click="currentPost = post" v-bind:class="{selected: currentPost === post}">   
-        <p>{{ post.id }} - Title: {{ post.title }}</p>
-        <p>{{ post.body }}</p>
-        <p>{{ post.image }}</p>
-      </div>
+        <button v-on:click="setSortAttribute('title')"> Sort by title</button>
+        <button v-on:click="setSortAttribute('body')"> Sort by body</button>
+        <button v-on:click="setSortAttribute('image')"> Sort by image</button>
+
+       <transition-group appear enter-active-class="animated pulse" leave-active-class="bounceOut">
+          <div v-for="post in orderBy(filterBy(posts, titleFilter, 'title'), sortAttribute, 'title', 1)" v-on:click="currentPost = post" 
+          v-bind:class="{selected: currentPost === post}"
+          v-bind:key="post.id"
+          >   
+            <p>{{ post.id }} - {{ post.title }}</p>
+            <p>{{ post.body }}</p>
+            <p>{{ post.image }}</p>
+          
+        </div>
+      </transition-group>
   </div>
 </template>
 
@@ -30,7 +43,8 @@ export default {
       message: "Welcome to Vue.js!",
       posts: [],
       currentPost: {},
-      titleFilter: ''
+      titleFilter: '',
+      sortAttribute: "title"
     };
   },
   created: function() {
@@ -40,6 +54,12 @@ export default {
     }
     );
   },
-  methods: {}
+  methods: {
+    setSortAttribute: function(attribute) {
+      console.log(attribute);
+      console.log('setting sort attribute');
+      this.sortAttribute = attribute;
+    }
+  }
 };
 </script>
